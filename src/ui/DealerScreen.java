@@ -243,7 +243,7 @@ public class DealerScreen {
     	//int signal = 0;   	
     	ArrayList<Dealer> searchList = null;
     	SearchDealer s1 = new SearchDealer();
-    	JLabel l1 = new JLabel("Search By: ");
+    	JLabel l1 = new JLabel("");
     	JRadioButton c1=new JRadioButton("Zipcode");
     	JRadioButton c2=new JRadioButton("Dealer Name");
     	JButton c3=new JButton("Search");
