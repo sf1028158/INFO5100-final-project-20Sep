@@ -1,6 +1,6 @@
 import java.util.regex.Pattern;
 
-public class DealerZipValidator {
+public class Validator {
     private static String regex1 = "^[0-9]{5}(?:-[0-9]{4})?$"; // check regex later
     private static String regex2 = "^[a-zA-Z-.]+";
     private static String regex3 = "^[a-zA-Z]+";

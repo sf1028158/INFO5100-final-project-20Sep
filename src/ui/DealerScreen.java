@@ -1,4 +1,11 @@
 package ui;
+import incentive.*;
+import dao.*;
+
+import service.*;
+//import ui.*; 
+import validation.*;
+
 /* Use Case I Screen */
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -12,12 +19,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Vector;
-import incentive.*;
-import dao.*;
 
-import service.*;
-//import ui.*; 
-import validation.*;
 
 
 public class DealerScreen {
@@ -102,7 +104,7 @@ public class DealerScreen {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 String dealerName = textFieldDealerName.getText();
                 // !dealerName.isEmpty()&&!Validator.isValidDealerName(dealerName)
-                if(!dealerName.isEmpty()) {
+                if(!dealerName.isEmpty()&&!Validator.isValidDealerName(dealerName)) {
                     JOptionPane.showMessageDialog(frame, "Invalid input. Please try again.");
                 }
             }
