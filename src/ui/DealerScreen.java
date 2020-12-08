@@ -101,7 +101,7 @@ public class DealerScreen {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 String dealerName = textFieldDealerName.getText();
-                // !dealerName.isEmpty()&&!DealerZipValidator.isValidDealerName(dealerName)
+                // !dealerName.isEmpty()&&!Validator.isValidDealerName(dealerName)
                 if(!dealerName.isEmpty()) {
                     JOptionPane.showMessageDialog(frame, "Invalid input. Please try again.");
                 }
