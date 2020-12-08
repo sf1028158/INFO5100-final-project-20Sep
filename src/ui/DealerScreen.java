@@ -16,7 +16,7 @@ import incentive.*;
 import dao.*;
 
 import service.*;
-import ui.*; 
+//import ui.*; 
 import validation.*;
 
 
@@ -101,9 +101,9 @@ public class DealerScreen {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 String dealerName = textFieldDealerName.getText();
-                // !dealerName.isEmpty()&&!Validator.isValidDealerName(dealerName)
-                if(dealerName.isEmpty()) {
-                    JOptionPane.showMessageDialog(frame, "Dealer name is empty. Please try again.");
+                // !dealerName.isEmpty()&&!DealerZipValidator.isValidDealerName(dealerName)
+                if(!dealerName.isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "Invalid input. Please try again.");
                 }
             }
 
