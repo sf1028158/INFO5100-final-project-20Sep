@@ -1,4 +1,4 @@
-package search;
+package service;
 
 import dao.Dealer;
 import dto.DataPersistence;

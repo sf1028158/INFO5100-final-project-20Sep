@@ -1,3 +1,5 @@
+
+/* Use Case I Screen */
 package ui;
 import incentive.*;
 import dao.*;
@@ -6,7 +8,6 @@ import service.*;
 //import ui.*; 
 import validation.*;
 
-/* Use Case I Screen */
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
@@ -198,7 +199,7 @@ public class DealerScreen {
                 String zipCode=textFieldZipCode.getText();
                 try {
                 //  && !Validator.isValidZipCodeRange(zipCode)
-	                if(!textFieldZipCode.getText().isEmpty()) {
+	                if(!textFieldZipCode.getText().isEmpty()&& !Validator.isValidZipCodeRange(zipCode)) {
 	                	// if zip code is invalid
 	                    JOptionPane.showMessageDialog(frame, "This is a invalid Zip Code, Please enter again \nHint: Zip Code should be 5-digit or 9-digit (ZIP+4)."); 
 	                }
