@@ -9,10 +9,9 @@ import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static java.lang.System.*;
-
 public class SearchDealer {
     public static final List<Dealer> ALL_DEALERS = new DataPersistence().getAllDealers();
+    private static final String DISTANCE_SERVER = "https://www.zipcodeapi.com/rest/73MAhuPNVg6hkZ7AQFlRqnMbfmV8cT4gapT60EXgszTNNDTd0MEnwfoz31jbqqb8/multi-distance.csv/";
 
     /**
      *
@@ -37,6 +36,8 @@ public class SearchDealer {
             public int compare(Dealer o1, Dealer o2) {
                 if(o1.getDistanceInMiles() > o2.getDistanceInMiles()) {
                     return 1;
+                } else if(o1.getDistanceInMiles() == o2.getDistanceInMiles()) {
+                    return 0;
                 } else {
                     return -1;
                 }
@@ -54,7 +55,7 @@ public class SearchDealer {
      * @throws MalformedURLException
      */
     private static Map<String, Double> queryDistances(String zipcode, String dealerZipcodes) {
-        String url = String.format("https://www.zipcodeapi.com/rest/f22LF85IQxGZqCQZKNxtuM9Qw0KH488I8qY5fgdo9liaTg9GeWydRuBKVeRh1uxy/multi-distance.csv/%s/%s/miles",zipcode,dealerZipcodes);
+        String url = String.format(DISTANCE_SERVER + "%s/%s/miles",zipcode,dealerZipcodes);
 
         Map<String, Double> map = new HashMap<>();
 
@@ -81,29 +82,20 @@ public class SearchDealer {
     public static List<Dealer> searchByName(String dealerName) {
         List<Dealer> dealerList = new ArrayList<>();
 
-//        try (BufferedReader reader = new BufferedReader(new InputStreamReader(in))){
-//            String input = reader.readLine();
             for(Dealer dealers: ALL_DEALERS){
                 if(dealers.getDealerName().contains(dealerName)){
                     dealerList.add(dealers);
                 }
              }
 
-//        }catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
         return dealerList;
 
     }
 
     public static void main(String[] args) {
-        //SearchDealer.searchByZipCode("98107");
-
-        System.out.println(SearchDealer.searchByName("aj"));
+        System.out.println(SearchDealer.searchByZipCode("98115"));
+        //System.out.println(SearchDealer.searchByName("aj"));
         //SearchDealer.ALL_DEALERS.forEach(out::println);
     }
 }
-

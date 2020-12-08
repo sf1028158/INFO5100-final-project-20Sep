@@ -7,6 +7,7 @@ import dao.*;
 import service.*;
 //import ui.*; 
 import validation.*;
+import dto.*;
 
 
 import javax.swing.*;
@@ -31,7 +32,7 @@ public class DealerScreen {
     private JTextField textFieldZipCode;
     private JComboBox<String> comboBox;
     private JButton btnSearch;
-    
+        
     private JTable table;
     int signal = 0;
     
@@ -56,8 +57,6 @@ public class DealerScreen {
         dealerName();
         zipCode();
         searchBtn();
-        // mileRange(); // Fang's method
-        // searchButton(); // Fang's method
     }
 
     // complete frame
@@ -217,28 +216,6 @@ public class DealerScreen {
         });
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     private void searchBtn(){
     	//int signal = 0;   	
     	ArrayList<Dealer> searchList = null;
@@ -247,10 +224,10 @@ public class DealerScreen {
     	JRadioButton c1=new JRadioButton("Zipcode");
     	JRadioButton c2=new JRadioButton("Dealer Name");
     	JButton c3=new JButton("Search");
-    	 l1.setBounds(10, 270, 150, 14);
-    	 c1.setBounds(190, 270, 80, 14);
-    	 c1.setBounds(290, 270, 80, 14);
-    	 c3.setBounds(10,300,100,14);
+    	l1.setBounds(10, 270, 150, 14);
+    	c1.setBounds(190, 270, 80, 14);
+    	c1.setBounds(290, 270, 80, 14);
+    	c3.setBounds(10,300,100,14);
     	ButtonGroup group = new ButtonGroup();  
     	group.add(c1);
     	group.add(c2);  
@@ -264,7 +241,6 @@ public class DealerScreen {
 		c3.addActionListener((ActionEvent ae) ->{
 	
 			if(signal==0){
-				
 				ArrayList<Dealer> searchList1=(ArrayList<Dealer>) s1.searchByZipCode(textFieldZipCode.getText());
 				try {
 					createTable(searchList1);
@@ -288,7 +264,6 @@ public class DealerScreen {
 		});	
 		
     }
-    
     
     private void createTable(ArrayList<Dealer> dealerList1) throws Exception { 	
     	
@@ -329,13 +304,10 @@ public class DealerScreen {
             table.getColumnModel().getColumn(i).setPreferredWidth(tablePreferredWidth);
 
         }
-    }  
- 
-    
-    
+    } 
     
    private void SelectAndView() {
-	    int count=table.getSelectedRow();//��ȡ��ѡ�е��кţ���¼��
+	    int count=table.getSelectedRow();
 	    int getID= Integer.parseInt((String) table.getValueAt(count, 0));
 	    JButton jbtn= new JButton("View Inventory");
 	    panelRight.add(jbtn);
@@ -345,8 +317,5 @@ public class DealerScreen {
 	    	System.out.println("Dealer"+"getID"+"is selected, and view inventory.");
 	    	
 	    });
-    	
-    	
-   }    
-    
+   }       
 }
