@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class SearchDealer {
     public static final List<Dealer> ALL_DEALERS = new DataPersistence().getAllDealers();
-    private static final String DISTANCE_SERVER = "https://www.zipcodeapi.com/rest/2nAkj6oACd21mLOwGFuAeMg1pa6nTSdYI4qPekfM6uJgz0vPy6EnbaXNOSe0bTkD/multi-distance.csv/";
+    private static final String DISTANCE_SERVER = "https://www.zipcodeapi.com/rest/An4UrDOAosu7lwfelRW1qTzXrYeaZ6n1ahwJqmPx74s2qLayMsMqeA7pzUqguYC2/multi-distance.csv/";
     //vGrUYAvyxcZUerHdkHJTL7oTK03Hssnb7A8eEcR9k8bhWLtjqWCgMdIpgK6hd08e
 
 

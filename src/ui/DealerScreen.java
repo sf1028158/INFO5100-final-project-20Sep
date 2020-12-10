@@ -86,9 +86,10 @@ public class DealerScreen {
         frame.getContentPane().add(panelRight,BorderLayout.CENTER);
     }
 
+    
     // initializing dealer's name
     private void dealerName() {
-        JLabel lblName = new JLabel("Search by Dealers Name: ");
+        JLabel lblName = new JLabel("Dealer Name is Optional: ");
         lblName.setBounds(10, 50, 200, 14);
         lblName.setForeground(Color.WHITE);
         panelLeft.add(lblName);
@@ -148,7 +149,7 @@ public class DealerScreen {
 
     // handling zip code
     private void zipCode() {
-        JLabel lblPhone = new JLabel("Search by Zipcode: ");
+        JLabel lblPhone = new JLabel("Zipcode is Required: ");
         lblPhone.setBounds(10, 190, 270, 14);
         lblPhone.setForeground(Color.WHITE);
         panelLeft.add(lblPhone);
@@ -325,7 +326,6 @@ public class DealerScreen {
        }  else  {
              JLabel lblNoDataFound= new JLabel("No Record Available" + ((textFieldDealerName.getText().length()>0)?(" with Dealer Name " +textFieldDealerName.getText().toUpperCase()):"") +
                      " within " + (comboBox.getSelectedItem().toString()) + " Miles of ZipCode "+ textFieldZipCode.getText());
-
              lblNoDataFound.setForeground(new Color(0, 113, 238));
              lblNoDataFound.setFont(new Font("Arial", Font.PLAIN, 15));
              lblNoDataFound.setAlignmentX(JLabel.CENTER_ALIGNMENT);
