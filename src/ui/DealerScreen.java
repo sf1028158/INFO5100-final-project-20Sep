@@ -4,7 +4,7 @@ import incentive.*;
 import dao.*;
 
 import service.*;
-//import ui.*; 
+import ui.*; 
 import validation.*;
 import dto.*;
 
@@ -27,7 +27,7 @@ import java.util.Vector;
 public class DealerScreen {
     private JFrame frame;
     private JPanel panelLeft, panelRight;
-    private JTextField textFieldDealerName;
+    // private JTextField textFieldDealerName;
     private JTextField textFieldZipCode;
     private JComboBox<String> comboBox;
     private JButton btnSearch;
@@ -53,7 +53,7 @@ public class DealerScreen {
 
     private DealerScreen() {
         frameAndPanel();
-        dealerName();
+        // dealerName();
         zipCode();
         initializeSearchButton();
     }
@@ -88,6 +88,7 @@ public class DealerScreen {
 
     
     // initializing dealer's name
+    /*
     private void dealerName() {
         JLabel lblName = new JLabel("Dealer Name is Optional: ");
         lblName.setBounds(10, 50, 200, 14);
@@ -146,7 +147,8 @@ public class DealerScreen {
             }
         });
     }
-
+	*/
+    
     // handling zip code
     private void zipCode() {
         JLabel lblPhone = new JLabel("Zipcode is Required: ");
@@ -216,10 +218,10 @@ public class DealerScreen {
         });
     }
     
-    // method to handel search button
+    // method to handle search button
     private void initializeSearchButton() {
         btnSearch = new JButton("Search");
-        btnSearch.setBounds(45, 500, 180, 40);
+        btnSearch.setBounds(10, 300, 180, 40);
         panelLeft.add(btnSearch);
 
         //Action Listener for SearchButton
@@ -297,12 +299,12 @@ public class DealerScreen {
                 table.getColumnModel().getColumn(x).setCellRenderer( rendar );
             }
 
-            //Table Header
+            // Table Header
             JTableHeader header = table.getTableHeader();
             header.setFont(new Font("Arial", Font.CENTER_BASELINE, 15));
             header.setBackground(new Color(165, 194, 147));
             header.setForeground(Color.BLACK);
-            //set header size
+            // set header size
             table.getTableHeader().setPreferredSize(new Dimension(700,table.getRowHeight()));
             // set header text to Center Align
             ((DefaultTableCellRenderer)table.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
@@ -313,7 +315,7 @@ public class DealerScreen {
             panelRight.add(jScrollPane);}
             
             /*
-            // entry point for usecase 2 by click on a particular table row
+            use case 2 here
             table.addMouseListener(new MouseAdapter() {
                 public void mouseReleased(MouseEvent me) {
                     if(me.getClickCount()==2){
