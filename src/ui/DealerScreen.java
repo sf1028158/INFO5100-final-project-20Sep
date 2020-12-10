@@ -35,7 +35,7 @@ public class DealerScreen {
     private JTable table;
     int signal = 0;
     
-    //private ArrayList<Dealer> dealerList=new ArrayList<>();
+    private ArrayList<Dealer> dealerList=new ArrayList<>();
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -55,7 +55,7 @@ public class DealerScreen {
         frameAndPanel();
         dealerName();
         zipCode();
-        searchBtn();
+        initializeSearchButton();
     }
 
     // complete frame
@@ -215,6 +215,148 @@ public class DealerScreen {
         });
     }
     
+    // method to handel search button
+    private void initializeSearchButton() {
+        btnSearch = new JButton("Search");
+        btnSearch.setBounds(45, 500, 180, 40);
+        panelLeft.add(btnSearch);
+
+        //Action Listener for SearchButton
+        btnSearch.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                if (!Validator.isValidZipCodeRange(textFieldZipCode.getText())) {
+                    JOptionPane.showMessageDialog(frame, "This is a invalid Zip Code, Please enter again \nHint: Zip Code should be 5-digit or 9-digit (ZIP+4). ");
+                } else { //call method to get list of dealers
+                    frame.getContentPane().remove(panelRight);
+                    initializeRightPanel();
+                    panelRight.revalidate();
+                    panelRight.repaint();
+                    try {
+                        initialiseAndCreateTable();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+    
+
+    //CreationOfTable
+    private void initialiseAndCreateTable() throws Exception {
+        String[] columns = {"ID","Dealer Name", "Miles Away","ZipCode"};
+
+        DefaultTableModel model = new DefaultTableModel(columns, 0);
+        SearchDealer dsf= new SearchDealer();
+        dealerList = (ArrayList<Dealer>) dsf.searchByZipCode(textFieldZipCode.getText());
+        if(dealerList==null) {
+            JLabel lblIncorrectUSZipcode= new JLabel(textFieldZipCode.getText() + " is not a USA Zip Code.");
+            lblIncorrectUSZipcode.setForeground(new Color(0, 113, 238));
+            lblIncorrectUSZipcode.setFont(new Font("Arial", Font.PLAIN, 15));
+            lblIncorrectUSZipcode.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+            lblIncorrectUSZipcode.setPreferredSize(new Dimension(700, 650));
+            panelRight.add(lblIncorrectUSZipcode);
+            panelRight.setEnabled(true);
+        } else if(dealerList.size()>0){
+        	//////////////////////////////////////////////////////////
+            for(Dealer detail : dealerList) {
+                Vector<String> row = new Vector<>();
+                row.add(detail.getDealerId()+ " ");
+                row.add(detail.getDealerName());
+                row.add(detail.getDistanceInMiles()+" ");
+                row.add(detail.getDealerAddress().getZipCode());
+                model.addRow(row);
+            }
+
+            JTable table = new JTable(model){
+                public Component prepareRenderer(TableCellRenderer renderer, int row, int column){
+                    //this is to have alternative color in the table row
+                    Component returnComp = super.prepareRenderer(renderer, row, column);
+                    Color darkShade = new Color(0, 52, 94);
+                    Color lightShade = new Color(0, 75, 134);
+                    if (!returnComp.getBackground().equals(getSelectionBackground())){
+                        Color bg = (row % 2 == 0 ? darkShade : lightShade);
+                        returnComp .setBackground(bg);
+                        bg = null;
+                    }
+                    return returnComp;
+                }
+            };
+
+            table.setForeground(Color.WHITE);
+            table.setShowGrid(false);
+            table.setShowHorizontalLines(true);
+            table.setRowHeight(table.getRowHeight() + 20); // set row height
+            table.setDefaultEditor(Object.class, null); // to stop the editing of table cell on double click of mouse
+
+            // to make text Center Align
+            DefaultTableCellRenderer rendar = new DefaultTableCellRenderer();
+            rendar.setHorizontalAlignment(JLabel.CENTER);
+            for(int x=0;x<table.getColumnCount();x++){
+                table.getColumnModel().getColumn(x).setCellRenderer( rendar );
+            }
+
+            //Table Header
+            JTableHeader header = table.getTableHeader();
+            header.setFont(new Font("Arial", Font.CENTER_BASELINE, 15));
+            header.setBackground(new Color(0, 30, 54));
+            header.setForeground(Color.WHITE);
+            //set header size
+            table.getTableHeader().setPreferredSize(new Dimension(700,table.getRowHeight()));
+            // set header text to Center Align
+            ((DefaultTableCellRenderer)table.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
+
+            // set different width for different columns
+            setJTableColumnsWidth(table, 700, 10, 30, 30, 20,10);
+            JScrollPane jScrollPane = new JScrollPane(table);
+            panelRight.add(jScrollPane);}
+            
+            /*
+            // entry point for usecase 2 by click on a particular table row
+            table.addMouseListener(new MouseAdapter() {
+                public void mouseReleased(MouseEvent me) {
+                    if(me.getClickCount()==2)
+                    {int row = table.rowAtPoint(me.getPoint());
+                    if(row!=-1) {
+                        // Stephen added (USECASE_2)
+                        new Frame_1(dealerList.get(row),frame);
+                    }}
+                }
+            });
+//            System.out.println(table.getHeight());
+       }  else  {
+             JLabel lblNoDataFound= new JLabel("No Record Available" + ((textFieldDealerName.getText().length()>0)?(" with Dealer Name " +textFieldDealerName.getText().toUpperCase()):"") +
+                     " within " + (comboBox.getSelectedItem().toString()) + " Miles of ZipCode "+ textFieldZipCode.getText());
+
+             lblNoDataFound.setForeground(new Color(0, 113, 238));
+             lblNoDataFound.setFont(new Font("Arial", Font.PLAIN, 15));
+             lblNoDataFound.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+             lblNoDataFound.setPreferredSize(new Dimension(700, 650));
+             panelRight.add(lblNoDataFound);
+             panelRight.setEnabled(true);
+       }
+       */
+    }
+
+    // method to set the column width dynamically
+    public static void setJTableColumnsWidth(JTable table, int tablePreferredWidth,
+                                             double... percentages) {
+        double total = 0;
+        for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
+            total += percentages[i];
+        }
+
+        for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
+            TableColumn column = table.getColumnModel().getColumn(i);
+            column.setPreferredWidth((int)
+                    (tablePreferredWidth * (percentages[i] / total)));
+        }
+    }
+    
+    
+    
+    
+    /*
     private void searchBtn(){
     	//int signal = 0;   	
     	ArrayList<Dealer> searchList = null;
@@ -316,5 +458,6 @@ public class DealerScreen {
 	    	System.out.println("Dealer"+"getID"+"is selected, and view inventory.");
 	    	
 	    });
-   }       
+   } 
+   */      
 }
