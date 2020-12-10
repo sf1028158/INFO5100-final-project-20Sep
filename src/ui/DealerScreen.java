@@ -1,4 +1,3 @@
-
 /* Use Case I Screen */
 package ui;
 import incentive.*;
