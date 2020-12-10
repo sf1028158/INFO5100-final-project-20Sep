@@ -94,7 +94,6 @@ public class DealerScreen {
         lblName.setBounds(10, 50, 200, 14);
         lblName.setForeground(Color.WHITE);
         panelLeft.add(lblName);
-
         textFieldDealerName = new JTextField();
         textFieldDealerName.setBounds(10, 90, 200, 20);
         textFieldDealerName.setColumns(10);
@@ -102,7 +101,6 @@ public class DealerScreen {
         highlightDealerName();
         dealerNameValidation();
     }
-
     // validating dealer's name
     private void dealerNameValidation(){
         textFieldDealerName.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -115,10 +113,8 @@ public class DealerScreen {
                     JOptionPane.showMessageDialog(frame, "Invalid input. Please try again.");
                 }
             }
-
         });
     }
-
     // highlighting if dealer's name textfield is empty
     private void highlightDealerName(){
         Border defaultBorder = textFieldDealerName.getBorder();
@@ -137,7 +133,6 @@ public class DealerScreen {
             public void changedUpdate(DocumentEvent documentEvent) {
                 maybeHighlight();
             }
-
             private void maybeHighlight() {
                 if (textFieldDealerName.getText().trim().length() != 0) {
                     textFieldDealerName.setBorder(defaultBorder);
