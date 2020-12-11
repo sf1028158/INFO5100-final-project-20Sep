@@ -316,7 +316,7 @@ public class DealerScreen {
                     if(me.getClickCount()==2){
                     int row = table.rowAtPoint(me.getPoint());
                     if(row!=-1) {
-                        new Frame_1(dealerList.get(row),frame);
+                        new AutomobileDealerInventoryUI02(dealerList.get(row),frame);
                     }}
                 }
             });
